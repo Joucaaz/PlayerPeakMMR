@@ -1,15 +1,16 @@
 #include "pch.h"
 #include "PlayerPeakMMR.h"
 
+#include <string>
 
-BAKKESMOD_PLUGIN(PlayerPeakMMR, "write a plugin description here", plugin_version, PLUGINTYPE_FREEPLAY)
+BAKKESMOD_PLUGIN(PlayerPeakMMR, "Peak MMR", plugin_version, PLUGINTYPE_FREEPLAY)
 
 std::shared_ptr<CVarManagerWrapper> _globalCvarManager;
 
 void PlayerPeakMMR::onLoad()
 {
 	_globalCvarManager = cvarManager;
-	//LOG("Plugin loaded!");
+	LOG("Welcome to Player Peak MMR plugin");
 	// !! Enable debug logging by setting DEBUG_LOG = true in logging.h !!
 	//DEBUGLOG("PlayerPeakMMR debug mode enabled");
 
@@ -46,4 +47,95 @@ void PlayerPeakMMR::onLoad()
 	//});
 	// You could also use std::bind here
 	//gameWrapper->HookEvent("Function TAGame.Ball_TA.Explode", std::bind(&PlayerPeakMMR::YourPluginMethod, this);
+
+	gameWrapper->HookEvent("Function GameEvent_TA.Countdown.BeginState", std::bind(&PlayerPeakMMR::getAllPlayers, this));
+}
+
+void PlayerPeakMMR::onUnload() {
+	LOG("See you in Player Peak MMR plugin !");
+}
+
+void PlayerPeakMMR::getAllPlayers() {
+
+	LOG("getAllPlayers() function");
+
+	//if (!gameWrapper->IsInFreeplay()) { return; }
+
+	ServerWrapper server = gameWrapper->GetCurrentGameState();
+	if (!server) { return; }
+
+	auto cars = server.GetCars();
+	if (cars.Count() == 0){ LOG("No cars found"); }
+
+	for (auto Car : cars) {
+
+		auto pris = Car.GetPRI();
+		auto platformString = knowPlatform(pris.GetPlatform());
+
+		LOG("Platform : " + platformString);
+		LOG("Name : " + pris.GetPlayerName().ToString());
+
+
+		switch (pris.GetPlatform()) {
+			case OnlinePlatform_Unknown:
+				LOG("Unknow : " + pris.GetUniqueIdWrapper().GetIdString());
+				break;
+			case OnlinePlatform_Steam:
+				LOG("Steam ID : " + pris.GetUniqueIdWrapper().GetIdString());
+				//LOG("Steam ID 2 : " + std::to_string(pris.GetUniqueId().ID));
+				break;
+			case OnlinePlatform_PS4:
+				LOG("PS4 : " + pris.GetUniqueIdWrapper().GetIdString());
+				break;
+			case OnlinePlatform_PS3:
+				LOG("PS3 : " + pris.GetUniqueIdWrapper().GetIdString());
+				break;
+			case OnlinePlatform_PsyNet:
+				LOG("PsyNet : " + pris.GetUniqueIdWrapper().GetIdString());
+				break;
+			case OnlinePlatform_Epic:
+				LOG("Epic ID : " + pris.GetUniqueIdWrapper().GetEpicAccountID());
+				break;
+			default:
+				LOG("Default");
+				break;
+			}
+
+		
+		
+	}
+
+}
+
+string PlayerPeakMMR::knowPlatform(OnlinePlatform online) {
+	switch (online) {
+		case OnlinePlatform_Unknown:
+			return "Unknown";
+		case OnlinePlatform_Steam:
+			return "Steam";
+		case OnlinePlatform_PS4:
+			return "PS4";
+		case OnlinePlatform_PS3:
+			return "PS3";
+		case OnlinePlatform_Dingo:
+			return "Dingo";
+		case OnlinePlatform_QQ:
+			return "QQ";
+		case OnlinePlatform_OldNNX:
+			return "Old NNX";
+		case OnlinePlatform_NNX:
+			return "NNX";
+		case OnlinePlatform_PsyNet:
+			return "PsyNet";
+		case OnlinePlatform_Deleted:
+			return "Deleted";
+		case OnlinePlatform_WeGame:
+			return "WeGame";
+		case OnlinePlatform_Epic:
+			return "Epic";
+		case OnlinePlatform_MAX:
+			return "Max";
+		default:
+			return "Unknown";
+		}
 }
