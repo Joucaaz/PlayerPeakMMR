@@ -1,4 +1,4 @@
-# PeakPlayerMMR (WORK IN PROCESS)
+# PlayerPeakMMR (WORK IN PROCESS)
 
 This is a BakkesMod plugin to show for each player in the game, their peak MMR and Rank in the current selected playlist in Rocket League.
 
