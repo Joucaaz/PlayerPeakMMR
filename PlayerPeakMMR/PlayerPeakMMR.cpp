@@ -48,21 +48,30 @@ void PlayerPeakMMR::onLoad()
 	// You could also use std::bind here
 	//gameWrapper->HookEvent("Function TAGame.Ball_TA.Explode", std::bind(&PlayerPeakMMR::YourPluginMethod, this);
 
-	gameWrapper->HookEvent("Function GameEvent_TA.Countdown.BeginState", std::bind(&PlayerPeakMMR::getAllPlayers, this));
+	gameWrapper->HookEvent("Function GameEvent_TA.Countdown.BeginState", std::bind(&PlayerPeakMMR::gameStart, this));
 }
 
 void PlayerPeakMMR::onUnload() {
 	LOG("See you in Player Peak MMR plugin !");
 }
 
-void PlayerPeakMMR::getAllPlayers() {
+void PlayerPeakMMR::gameStart() {
+	ServerWrapper server = gameWrapper->GetCurrentGameState();
+	if (!server) { return; }
+
+	//check if 5 minutes remaining
+	if (server.GetSecondsRemaining() == 300)
+	{
+		getAllPlayers(server);
+	}
+
+}
+
+void PlayerPeakMMR::getAllPlayers(ServerWrapper server) {
 
 	LOG("getAllPlayers() function");
 
 	//if (!gameWrapper->IsInFreeplay()) { return; }
-
-	ServerWrapper server = gameWrapper->GetCurrentGameState();
-	if (!server) { return; }
 
 	auto cars = server.GetCars();
 	if (cars.Count() == 0){ LOG("No cars found"); }
@@ -100,8 +109,6 @@ void PlayerPeakMMR::getAllPlayers() {
 				LOG("Default");
 				break;
 			}
-
-		
 		
 	}
 

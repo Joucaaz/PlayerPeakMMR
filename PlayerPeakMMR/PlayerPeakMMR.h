@@ -21,7 +21,10 @@ class PlayerPeakMMR: public BakkesMod::Plugin::BakkesModPlugin
 	void onLoad() override;
 	void onUnload() override; 
 
-	void getAllPlayers();
+	void gameStart();
+	void getAllPlayers(ServerWrapper server);
+	void getAccessToData(string ID, OnlinePlatform online);
+
 	string knowPlatform(OnlinePlatform online);
 
 public:
