@@ -1,18 +1,8 @@
-# Nom du Projet
+# PeakPlayerMMR (WORK IN PROCESS)
 
-Une brève description de ce que fait ce projet.
+This is a BakkesMod plugin to show for each player in the game, their peak MMR and Rank in the current selected playlist in Rocket League.
 
-## Prérequis
-
-Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
-
-- [Git](https://git-scm.com/)
-- [Visual Studio](https://visualstudio.microsoft.com/) (si vous travaillez avec C#)
-- [Node.js](https://nodejs.org/) (si applicable)
-
-## Installation
-
-1. Clonez ce dépôt sur votre machine locale en utilisant Git :
-
-   ```bash
-   git clone https://github.com/username/nom_du_repertoire.git
+## 🔗 Links
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://joudcazeaux.fr)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/joudcazeaux/)
+[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/JoucazJC)
