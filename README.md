@@ -1,4 +1,6 @@
-# PlayerPeakMMR (WORK IN PROCESS)
+# PlayerPeakMMR
+
+(This is not possible because Psyonix and Epic Games have not granted access to retrieve a player's peak MMR, and RLTracker does not provide an API to get this information either)
 
 This BakkesMod plugin displays each player's peak MMR and rank in the current playlist in Rocket League.
 
